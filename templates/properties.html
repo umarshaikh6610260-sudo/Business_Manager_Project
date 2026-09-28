@@ -1,0 +1,408 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Products | BusinessManager</title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/main.css' %}"
+    >
+
+</head>
+
+<body>
+
+
+<header class="site-header">
+
+    <div class="container navbar">
+
+        <a href="{% url 'home' %}" class="logo">
+
+            <span class="logo-mark">
+                BM
+            </span>
+
+            <span class="logo-text">
+                BusinessManager
+            </span>
+
+        </a>
+
+
+        <button
+            class="menu-toggle"
+            id="menuToggle"
+        >
+            ☰
+        </button>
+
+
+        <nav class="main-nav" id="mainNav">
+
+            <a href="{% url 'home' %}">
+                Home
+            </a>
+
+            <a href="{% url 'about' %}">
+                About
+            </a>
+
+            <a
+                href="{% url 'products' %}"
+                class="active"
+            >
+                Products
+            </a>
+
+            <a href="{% url 'services' %}">
+                Services
+            </a>
+
+            <a href="{% url 'contact' %}">
+                Contact
+            </a>
+
+            {% if user.is_authenticated %}
+
+                <a
+                    href="{% url 'dashboard' %}"
+                    class="nav-button"
+                >
+                    Dashboard
+                </a>
+
+            {% else %}
+
+                <a
+                    href="{% url 'login' %}"
+                    class="nav-button"
+                >
+                    Login
+                </a>
+
+            {% endif %}
+
+        </nav>
+
+    </div>
+
+</header>
+
+
+<main>
+
+
+<section class="page-hero">
+
+    <div class="container">
+
+        <span class="section-label">
+            PRODUCT MANAGEMENT
+        </span>
+
+        <h1>
+            Keep your products
+            <span>organized and under control.</span>
+        </h1>
+
+        <p>
+            Manage product information, pricing and stock
+            from the BusinessManager system.
+        </p>
+
+    </div>
+
+</section>
+
+
+<section class="products-section">
+
+    <div class="container">
+
+
+        <div class="products-intro">
+
+            <span class="section-label">
+                PRODUCT FEATURES
+            </span>
+
+            <h2>
+                Everything you need to
+                manage your inventory.
+            </h2>
+
+            <p>
+                BusinessManager helps you maintain product
+                records and keep track of stock as your
+                business grows.
+            </p>
+
+        </div>
+
+
+        <div class="product-grid">
+
+
+            <article class="product-card">
+
+                <span class="product-number">
+                    01
+                </span>
+
+                <div class="product-icon">
+                    📦
+                </div>
+
+                <h3>
+                    Product Records
+                </h3>
+
+                <p>
+                    Store product name, SKU, category,
+                    description and other important details.
+                </p>
+
+            </article>
+
+
+            <article class="product-card">
+
+                <span class="product-number">
+                    02
+                </span>
+
+                <div class="product-icon">
+                    ₹
+                </div>
+
+                <h3>
+                    Pricing
+                </h3>
+
+                <p>
+                    Maintain purchase and selling prices
+                    for your business products.
+                </p>
+
+            </article>
+
+
+            <article class="product-card">
+
+                <span class="product-number">
+                    03
+                </span>
+
+                <div class="product-icon">
+                    📊
+                </div>
+
+                <h3>
+                    Stock Tracking
+                </h3>
+
+                <p>
+                    Keep track of available stock and identify
+                    products that are running low.
+                </p>
+
+            </article>
+
+
+            <article class="product-card">
+
+                <span class="product-number">
+                    04
+                </span>
+
+                <div class="product-icon">
+                    ⚠
+                </div>
+
+                <h3>
+                    Low Stock
+                </h3>
+
+                <p>
+                    Minimum stock levels help you identify
+                    products that may need attention.
+                </p>
+
+            </article>
+
+
+            <article class="product-card">
+
+                <span class="product-number">
+                    05
+                </span>
+
+                <div class="product-icon">
+                    🧾
+                </div>
+
+                <h3>
+                    Billing Connection
+                </h3>
+
+                <p>
+                    Product prices can be used while creating
+                    invoices and sales records.
+                </p>
+
+            </article>
+
+
+            <article class="product-card">
+
+                <span class="product-number">
+                    06
+                </span>
+
+                <div class="product-icon">
+                    🔎
+                </div>
+
+                <h3>
+                    Easy Access
+                </h3>
+
+                <p>
+                    Keep product information available when
+                    working with customers and billing.
+                </p>
+
+            </article>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="cta-section">
+
+    <div class="container">
+
+        <div class="cta-box">
+
+            <div>
+
+                <span class="section-label">
+                    INVENTORY MANAGEMENT
+                </span>
+
+                <h2>
+                    Know what you have
+                    before you sell it.
+                </h2>
+
+                <p>
+                    Keep product and stock information
+                    organized with BusinessManager.
+                </p>
+
+            </div>
+
+
+            {% if user.is_authenticated %}
+
+                <a
+                    href="{% url 'dashboard' %}"
+                    class="cta-button"
+                >
+                    Open Dashboard
+                </a>
+
+            {% else %}
+
+                <a
+                    href="{% url 'login' %}"
+                    class="cta-button"
+                >
+                    Login to Start
+                </a>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+<footer class="site-footer">
+
+    <div class="container footer-content">
+
+        <div class="footer-brand">
+
+            <a
+                href="{% url 'home' %}"
+                class="footer-logo"
+            >
+                BusinessManager
+            </a>
+
+            <p>
+                Product, inventory, billing and business
+                records in one system.
+            </p>
+
+        </div>
+
+
+        <div class="footer-links">
+
+            <a href="{% url 'home' %}">Home</a>
+
+            <a href="{% url 'about' %}">About</a>
+
+            <a href="{% url 'products' %}">Products</a>
+
+            <a href="{% url 'services' %}">Services</a>
+
+            <a href="{% url 'contact' %}">Contact</a>
+
+        </div>
+
+    </div>
+
+
+    <div class="container footer-bottom">
+
+        <p>
+            © 2026 BusinessManager. All rights reserved.
+        </p>
+
+        <p>
+            Ahmedabad, Gujarat, India
+        </p>
+
+    </div>
+
+</footer>
+
+
+<script src="{% static 'js/main.js' %}"></script>
+
+</body>
+</html>

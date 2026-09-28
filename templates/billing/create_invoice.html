@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Create Invoice</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: #f5f7fb;
+            color: #1e293b;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 30px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            color: #64748b;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            margin-bottom: 20px;
+            overflow-x: auto;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid #cbd5e1;
+            border-radius: 7px;
+            background: white;
+            color: #1e293b;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #2563eb;
+        }
+
+        table {
+            width: 100%;
+            min-width: 700px;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #f8fafc;
+            text-align: left;
+            padding: 13px;
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        td {
+            padding: 12px;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        .add-row {
+            margin-top: 15px;
+            padding: 9px 15px;
+            border: none;
+            background: #0f172a;
+            color: white;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        .add-row:hover {
+            background: #1e293b;
+        }
+
+        .remove-row {
+            border: none;
+            background: #fee2e2;
+            color: #dc2626;
+            padding: 7px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .remove-row:hover {
+            background: #fecaca;
+        }
+
+        .summary {
+            max-width: 350px;
+            margin-left: auto;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            padding: 10px 0;
+        }
+
+        .summary-row input {
+            max-width: 180px;
+        }
+
+        .grand-total {
+            border-top: 2px solid #e2e8f0;
+            font-size: 18px;
+            font-weight: bold;
+            padding-top: 15px;
+        }
+
+        .save-btn {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            background: #2563eb;
+            color: white;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .save-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .empty-option {
+            color: #dc2626;
+        }
+
+        .message {
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        @media(max-width:700px) {
+
+            .container {
+                padding: 15px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card {
+                padding: 15px;
+            }
+
+            .summary {
+                max-width: 100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+
+        <div>
+
+            <h1>Create Invoice</h1>
+
+            <p>
+                Create a new customer invoice.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- Django Messages -->
+
+    {% if messages %}
+
+        {% for message in messages %}
+
+            <div class="message">
+                {{ message }}
+            </div>
+
+        {% endfor %}
+
+    {% endif %}
+
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+
+        <!-- Invoice Details -->
+
+        <div class="card">
+
+            <h3>Invoice Details</h3>
+
+            <br>
+
+            <div class="form-grid">
+
+
+                <!-- Customer Dropdown -->
+
+                <div>
+
+                    <label for="customer">
+                        Customer
+                    </label>
+
+                    <select
+                        name="customer"
+                        id="customer"
+                        required
+                    >
+
+                        <option value="">
+                            Select Customer
+                        </option>
+
+
+                        {% for customer in customers %}
+
+                            <option value="{{ customer.id }}">
+
+                                {{ customer.name }}
+
+                                {% if customer.phone %}
+                                    - {{ customer.phone }}
+                                {% endif %}
+
+                            </option>
+
+                        {% empty %}
+
+                            <option
+                                value=""
+                                disabled
+                                class="empty-option"
+                            >
+                                No customers found. Please add a customer first.
+                            </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+                <!-- Invoice Number -->
+
+                <div>
+
+                    <label for="invoice_number">
+                        Invoice Number
+                    </label>
+
+                    <input
+                        type="text"
+                        name="invoice_number"
+                        id="invoice_number"
+                        placeholder="INV-1001"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Invoice Date -->
+
+                <div>
+
+                    <label for="invoice_date">
+                        Invoice Date
+                    </label>
+
+                    <input
+                        type="date"
+                        name="invoice_date"
+                        id="invoice_date"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Due Date -->
+
+                <div>
+
+                    <label for="due_date">
+                        Due Date
+                    </label>
+
+                    <input
+                        type="date"
+                        name="due_date"
+                        id="due_date"
+                    >
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+        <!-- Invoice Items -->
+
+        <div class="card">
+
+            <h3>Invoice Items</h3>
+
+            <br>
+
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="items">
+
+                    <tr>
+
+                        <!-- Product Dropdown -->
+
+                        <td>
+
+                            <select
+                                name="product[]"
+                                class="product-select"
+                                required
+                            >
+
+                                <option value="">
+                                    Select Product
+                                </option>
+
+
+                                {% for product in products %}
+
+                                    <option
+                                        value="{{ product.id }}"
+                                        data-price="{{ product.selling_price }}"
+                                        data-stock="{{ product.stock }}"
+                                    >
+
+                                        {{ product.name }}
+                                        - ₹{{ product.selling_price }}
+                                        - Stock: {{ product.stock }}
+
+                                    </option>
+
+                                {% empty %}
+
+                                    <option
+                                        value=""
+                                        disabled
+                                        class="empty-option"
+                                    >
+                                        No products found. Please add a product first.
+                                    </option>
+
+                                {% endfor %}
+
+                            </select>
+
+                        </td>
+
+
+                        <!-- Quantity -->
+
+                        <td>
+
+                            <input
+                                type="number"
+                                name="quantity[]"
+                                class="quantity-input"
+                                value="1"
+                                min="1"
+                                required
+                            >
+
+                        </td>
+
+
+                        <!-- Price -->
+
+                        <td>
+
+                            <input
+                                type="number"
+                                name="price[]"
+                                class="price-input"
+                                step="0.01"
+                                min="0"
+                                readonly
+                                required
+                            >
+
+                        </td>
+
+
+                        <!-- Remove -->
+
+                        <td>
+
+                            <button
+                                type="button"
+                                class="remove-row"
+                                onclick="removeRow(this)"
+                            >
+
+                                Remove
+
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+
+            <button
+                type="button"
+                class="add-row"
+                onclick="addRow()"
+            >
+
+                + Add Item
+
+            </button>
+
+        </div>
+
+
+        <!-- Discount -->
+
+        <div class="card">
+
+            <div class="summary">
+
+                <div class="summary-row">
+
+                    <label for="discount">
+                        Discount
+                    </label>
+
+                    <input
+                        type="number"
+                        name="discount"
+                        id="discount"
+                        value="0"
+                        min="0"
+                        step="0.01"
+                    >
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Submit -->
+
+        <button
+            type="submit"
+            class="save-btn"
+        >
+
+            Create Invoice
+
+        </button>
+
+
+    </form>
+
+</div>
+
+
+<script>
+
+
+// Product select hone par price automatically fill hoga
+
+function setProductPrice(selectElement) {
+
+    const row = selectElement.closest("tr");
+
+    const selectedOption =
+        selectElement.options[selectElement.selectedIndex];
+
+    const priceInput =
+        row.querySelector(".price-input");
+
+    const quantityInput =
+        row.querySelector(".quantity-input");
+
+
+    if (selectedOption && selectedOption.dataset.price) {
+
+        priceInput.value =
+            selectedOption.dataset.price;
+
+        quantityInput.max =
+            selectedOption.dataset.stock || "";
+
+    } else {
+
+        priceInput.value = "";
+
+        quantityInput.removeAttribute("max");
+
+    }
+
+}
+
+
+// Product dropdown event
+
+function attachProductEvent(row) {
+
+    const productSelect =
+        row.querySelector(".product-select");
+
+    productSelect.addEventListener(
+        "change",
+        function () {
+
+            setProductPrice(this);
+
+        }
+    );
+
+}
+
+
+// Add new item row
+
+function addRow() {
+
+    const tbody =
+        document.getElementById("items");
+
+    const firstRow =
+        tbody.querySelector("tr");
+
+    const newRow =
+        firstRow.cloneNode(true);
+
+
+    // Reset dropdown
+
+    const productSelect =
+        newRow.querySelector(".product-select");
+
+    productSelect.selectedIndex = 0;
+
+
+    // Reset quantity
+
+    const quantityInput =
+        newRow.querySelector(".quantity-input");
+
+    quantityInput.value = 1;
+
+    quantityInput.removeAttribute("max");
+
+
+    // Reset price
+
+    const priceInput =
+        newRow.querySelector(".price-input");
+
+    priceInput.value = "";
+
+
+    // Add new row
+
+    tbody.appendChild(newRow);
+
+
+    // Attach change event
+
+    attachProductEvent(newRow);
+
+}
+
+
+// Remove row
+
+function removeRow(button) {
+
+    const rows =
+        document.querySelectorAll("#items tr");
+
+
+    if (rows.length > 1) {
+
+        button.closest("tr").remove();
+
+    } else {
+
+        alert("At least one product is required.");
+
+    }
+
+}
+
+
+// Attach event to first row
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const firstRow =
+            document.querySelector("#items tr");
+
+        if (firstRow) {
+
+            attachProductEvent(firstRow);
+
+        }
+
+    }
+);
+
+
+</script>
+
+
+</body>
+
+</html>

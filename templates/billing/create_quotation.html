@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Create Quotation</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px;
+            font-family: Arial;
+            background: #f5f7fb;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .box {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .item-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr auto;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 11px 18px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .add {
+            background: #16a34a;
+            color: white;
+        }
+
+        .save {
+            background: #2563eb;
+            color: white;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .remove {
+            background: #dc2626;
+            color: white;
+        }
+
+        .back {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        @media(max-width:700px) {
+
+            .row,
+            .item-row {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+    <a
+        href="{% url 'quotation_list' %}"
+        class="back"
+    >
+        ← Quotations
+    </a>
+
+
+    <div class="box">
+
+        <h1>
+            Create Quotation
+        </h1>
+
+
+        {% for message in messages %}
+
+            <p>
+                {{ message }}
+            </p>
+
+        {% endfor %}
+
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+
+            <div class="row">
+
+                <div>
+
+                    <label>
+                        Customer
+                    </label>
+
+                    <select
+                        name="customer"
+                        required
+                    >
+
+                        <option value="">
+                            Select Customer
+                        </option>
+
+                        {% for customer in customers %}
+
+                            <option
+                                value="{{ customer.id }}"
+                            >
+                                {{ customer.name }}
+                            </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+                <div>
+
+                    <label>
+                        Quotation Number
+                    </label>
+
+                    <input
+                        type="text"
+                        name="quotation_number"
+                        placeholder="QT-001"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="row">
+
+                <div>
+
+                    <label>
+                        Quotation Date
+                    </label>
+
+                    <input
+                        type="date"
+                        name="quotation_date"
+                        required
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <label>
+                        Valid Until
+                    </label>
+
+                    <input
+                        type="date"
+                        name="valid_until"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <h2>
+                Products
+            </h2>
+
+
+            <div id="items">
+
+                <div class="item-row">
+
+                    <select
+                        name="product[]"
+                        required
+                    >
+
+                        <option value="">
+                            Select Product
+                        </option>
+
+                        {% for product in products %}
+
+                            <option
+                                value="{{ product.id }}"
+                            >
+                                {{ product.name }}
+                            </option>
+
+                        {% endfor %}
+
+                    </select>
+
+
+                    <input
+                        type="number"
+                        name="quantity[]"
+                        placeholder="Quantity"
+                        min="1"
+                        required
+                    >
+
+
+                    <input
+                        type="number"
+                        name="price[]"
+                        placeholder="Price"
+                        step="0.01"
+                        min="0"
+                        required
+                    >
+
+
+                    <button
+                        type="button"
+                        class="remove"
+                        onclick="removeRow(this)"
+                    >
+                        Remove
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="add"
+                onclick="addRow()"
+            >
+                + Add Product
+            </button>
+
+
+            <label>
+                Discount
+            </label>
+
+            <input
+                type="number"
+                name="discount"
+                value="0"
+                min="0"
+                step="0.01"
+            >
+
+
+            <label>
+                Notes
+            </label>
+
+            <textarea
+                name="notes"
+                rows="4"
+                placeholder="Quotation notes..."
+            ></textarea>
+
+
+            <button
+                type="submit"
+                class="save"
+            >
+                Create Quotation
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script>
+
+function addRow() {
+
+    const items = document.getElementById(
+        "items"
+    );
+
+    const firstRow = document.querySelector(
+        ".item-row"
+    );
+
+    const newRow = firstRow.cloneNode(
+        true
+    );
+
+    newRow.querySelectorAll(
+        "input"
+    ).forEach(
+        input => input.value = ""
+    );
+
+    newRow.querySelector(
+        "select"
+    ).value = "";
+
+    items.appendChild(newRow);
+}
+
+
+function removeRow(button) {
+
+    const rows = document.querySelectorAll(
+        ".item-row"
+    );
+
+    if (rows.length === 1) {
+
+        alert(
+            "At least one product is required."
+        );
+
+        return;
+    }
+
+    button.parentElement.remove();
+}
+
+</script>
+
+</body>
+
+</html>

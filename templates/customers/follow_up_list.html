@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Customer Follow-ups</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px;
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .back {
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        .section {
+            background: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        }
+
+        .section h2 {
+            margin-top: 0;
+        }
+
+        .overdue-title {
+            color: #dc2626;
+        }
+
+        .today-title {
+            color: #d97706;
+        }
+
+        .upcoming-title {
+            color: #2563eb;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 13px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background: #f8fafc;
+        }
+
+        .customer {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .call {
+            color: #16a34a;
+            text-decoration: none;
+        }
+
+        .whatsapp {
+            color: #15803d;
+            text-decoration: none;
+        }
+
+        .empty {
+            color: #6b7280;
+        }
+
+        @media(max-width:700px) {
+
+            body {
+                padding: 15px;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            table {
+                font-size: 13px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <h1>
+            Customer Follow-ups
+        </h1>
+
+        <a
+            href="{% url 'dashboard' %}"
+            class="back"
+        >
+            ← Dashboard
+        </a>
+
+    </div>
+
+
+    <!-- OVERDUE -->
+
+    <div class="section">
+
+        <h2 class="overdue-title">
+            🔴 Overdue Follow-ups
+        </h2>
+
+
+        {% if overdue %}
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Customer</th>
+                    <th>Phone</th>
+                    <th>Follow-up Date</th>
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+            {% for customer in overdue %}
+
+                <tr>
+
+                    <td>
+
+                        <a
+                            href="{% url 'customer_detail' customer.id %}"
+                            class="customer"
+                        >
+                            {{ customer.name }}
+                        </a>
+
+                    </td>
+
+
+                    <td>
+                        {{ customer.phone }}
+                    </td>
+
+
+                    <td>
+                        {{ customer.follow_up_date }}
+                    </td>
+
+
+                    <td>
+
+                        <a
+                            href="tel:{{ customer.phone }}"
+                            class="call"
+                        >
+                            📞 Call
+                        </a>
+
+                        &nbsp;
+
+                        <a
+                            href="https://wa.me/91{{ customer.phone }}"
+                            target="_blank"
+                            class="whatsapp"
+                        >
+                            💬 WhatsApp
+                        </a>
+
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+        {% else %}
+
+        <p class="empty">
+            No overdue follow-ups.
+        </p>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- TODAY -->
+
+    <div class="section">
+
+        <h2 class="today-title">
+            🟠 Today's Follow-ups
+        </h2>
+
+
+        {% if today_followups %}
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Customer</th>
+                    <th>Phone</th>
+                    <th>Follow-up Date</th>
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+            {% for customer in today_followups %}
+
+                <tr>
+
+                    <td>
+
+                        <a
+                            href="{% url 'customer_detail' customer.id %}"
+                            class="customer"
+                        >
+                            {{ customer.name }}
+                        </a>
+
+                    </td>
+
+
+                    <td>
+                        {{ customer.phone }}
+                    </td>
+
+
+                    <td>
+                        {{ customer.follow_up_date }}
+                    </td>
+
+
+                    <td>
+
+                        <a
+                            href="tel:{{ customer.phone }}"
+                            class="call"
+                        >
+                            📞 Call
+                        </a>
+
+                        &nbsp;
+
+                        <a
+                            href="https://wa.me/91{{ customer.phone }}"
+                            target="_blank"
+                            class="whatsapp"
+                        >
+                            💬 WhatsApp
+                        </a>
+
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+        {% else %}
+
+        <p class="empty">
+            No follow-ups for today.
+        </p>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- UPCOMING -->
+
+    <div class="section">
+
+        <h2 class="upcoming-title">
+            🔵 Upcoming Follow-ups
+        </h2>
+
+
+        {% if upcoming %}
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Customer</th>
+                    <th>Phone</th>
+                    <th>Follow-up Date</th>
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+            {% for customer in upcoming %}
+
+                <tr>
+
+                    <td>
+
+                        <a
+                            href="{% url 'customer_detail' customer.id %}"
+                            class="customer"
+                        >
+                            {{ customer.name }}
+                        </a>
+
+                    </td>
+
+
+                    <td>
+                        {{ customer.phone }}
+                    </td>
+
+
+                    <td>
+                        {{ customer.follow_up_date }}
+                    </td>
+
+
+                    <td>
+
+                        <a
+                            href="tel:{{ customer.phone }}"
+                            class="call"
+                        >
+                            📞 Call
+                        </a>
+
+                        &nbsp;
+
+                        <a
+                            href="https://wa.me/91{{ customer.phone }}"
+                            target="_blank"
+                            class="whatsapp"
+                        >
+                            💬 WhatsApp
+                        </a>
+
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+        {% else %}
+
+        <p class="empty">
+            No upcoming follow-ups.
+        </p>
+
+        {% endif %}
+
+    </div>
+
+
+</div>
+
+</body>
+
+</html>

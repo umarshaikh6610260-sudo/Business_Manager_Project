@@ -1,0 +1,264 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>About | BusinessManager</title>
+
+    <link rel="stylesheet" href="{% static 'css/about.css' %}">
+</head>
+
+<body>
+
+<header class="site-header">
+
+    <div class="nav-wrap">
+
+        <a href="{% url 'home' %}" class="brand">
+            <span class="brand-mark">BM</span>
+            <span>BusinessManager</span>
+        </a>
+
+        <button class="menu-toggle" id="menuToggle">☰</button>
+
+        <nav class="main-nav" id="mainNav">
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'about' %}" class="active">About</a>
+            <a href="{% url 'products' %}">Products</a>
+            <a href="{% url 'services' %}">Services</a>
+            <a href="{% url 'contact' %}">Contact</a>
+
+            {% if user.is_authenticated %}
+                <a href="{% url 'dashboard' %}" class="nav-button">
+                    Dashboard
+                </a>
+            {% else %}
+                <a href="{% url 'login' %}" class="nav-button">
+                    Login
+                </a>
+            {% endif %}
+        </nav>
+
+    </div>
+
+</header>
+
+
+<main>
+
+    <!-- HERO -->
+
+    <section class="about-hero reveal">
+
+        <div class="hero-content">
+
+            <span class="eyebrow">ABOUT BUSINESSMANAGER</span>
+
+            <h1>
+                Simple software for
+                <span>real business work.</span>
+            </h1>
+
+            <p>
+                BusinessManager brings customers, products, quotations,
+                invoices, payments, expenses and reports together in one
+                practical business system.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- STORY -->
+
+    <section class="about-section">
+
+        <div class="section-grid">
+
+            <div class="section-heading reveal">
+
+                <span class="eyebrow">WHY WE BUILT IT</span>
+
+                <h2>
+                    Business information should
+                    not be scattered everywhere.
+                </h2>
+
+            </div>
+
+
+            <div class="section-text reveal">
+
+                <p>
+                    Many small and growing businesses manage their daily
+                    work using notebooks, spreadsheets, messages and
+                    separate applications.
+                </p>
+
+                <p>
+                    BusinessManager is designed to bring those everyday
+                    tasks into one organized place. The goal is simple:
+                    spend less time searching for information and more
+                    time actually running the business.
+                </p>
+
+                <p>
+                    From a customer's purchase history to an unpaid invoice,
+                    important information stays connected and easy to find.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FEATURES -->
+
+    <section class="about-section light-section">
+
+        <div class="section-top reveal">
+
+            <span class="eyebrow">BUILT FOR DAILY USE</span>
+
+            <h2>Everything connected in one system.</h2>
+
+            <p>
+                The system is organized around the tasks businesses
+                already perform every day.
+            </p>
+
+        </div>
+
+
+        <div class="feature-grid">
+
+            <article class="feature-card reveal">
+
+                <span class="feature-number">01</span>
+
+                <div class="feature-icon">👥</div>
+
+                <h3>Customer Records</h3>
+
+                <p>
+                    Keep customer details, notes, purchase history
+                    and pending amounts organized.
+                </p>
+
+            </article>
+
+
+            <article class="feature-card reveal">
+
+                <span class="feature-number">02</span>
+
+                <div class="feature-icon">📦</div>
+
+                <h3>Products & Stock</h3>
+
+                <p>
+                    Manage product information, prices and stock
+                    levels from one place.
+                </p>
+
+            </article>
+
+
+            <article class="feature-card reveal">
+
+                <span class="feature-number">03</span>
+
+                <div class="feature-icon">🧾</div>
+
+                <h3>Sales Documents</h3>
+
+                <p>
+                    Create quotations and invoices while keeping
+                    sales information connected.
+                </p>
+
+            </article>
+
+
+            <article class="feature-card reveal">
+
+                <span class="feature-number">04</span>
+
+                <div class="feature-icon">📊</div>
+
+                <h3>Business Reports</h3>
+
+                <p>
+                    Review sales, expenses, payments and business
+                    performance with useful reports.
+                </p>
+
+            </article>
+
+        </div>
+
+    </section>
+
+
+    <!-- CTA -->
+
+    <section class="about-cta reveal">
+
+        <div>
+
+            <span class="eyebrow">GET STARTED</span>
+
+            <h2>
+                Keep your business work
+                organized.
+            </h2>
+
+        </div>
+
+        <a href="{% url 'dashboard' %}" class="primary-button">
+            Open Dashboard →
+        </a>
+
+    </section>
+
+</main>
+
+
+<footer class="site-footer">
+
+    <div class="footer-wrap">
+
+        <div>
+            <strong>BusinessManager</strong>
+            <p>
+                Practical tools for everyday business management.
+            </p>
+        </div>
+
+        <div class="footer-links">
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'about' %}">About</a>
+            <a href="{% url 'products' %}">Products</a>
+            <a href="{% url 'services' %}">Services</a>
+            <a href="{% url 'contact' %}">Contact</a>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        © <span id="currentYear"></span> BusinessManager. All rights reserved.
+    </div>
+
+</footer>
+
+
+<script src="{% static 'js/main.js' %}"></script>
+
+</body>
+</html>

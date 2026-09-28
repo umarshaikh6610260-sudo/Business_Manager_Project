@@ -1,0 +1,269 @@
+<!-- <!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Add Expense</title>
+
+    <style>
+
+        body {
+            font-family: Arial;
+            background: #f5f7fb;
+            padding: 30px;
+        }
+
+        .box {
+            max-width: 500px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 11px;
+            margin: 8px 0 18px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #2563eb;
+            color: white;
+            border: none;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="box">
+
+    <h2>Add Expense</h2>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <label>Title</label>
+
+        <input
+            type="text"
+            name="title"
+            required
+        >
+
+        <label>Category</label>
+
+        <select name="category">
+
+            <option value="rent">Rent</option>
+            <option value="salary">Salary</option>
+            <option value="electricity">Electricity</option>
+            <option value="marketing">Marketing</option>
+            <option value="transport">Transport</option>
+            <option value="office">Office</option>
+            <option value="other">Other</option>
+
+        </select>
+
+        <label>Amount</label>
+
+        <input
+            type="number"
+            name="amount"
+            step="0.01"
+            required
+        >
+
+        <label>Date</label>
+
+        <input
+            type="date"
+            name="expense_date"
+            required
+        >
+
+        <label>Description</label>
+
+        <textarea name="description"></textarea>
+
+        <button type="submit">
+            Save Expense
+        </button>
+
+    </form>
+
+</div>
+
+</body>
+
+</html> -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Add Expense</title>
+
+    <style>
+
+        body {
+            font-family: Arial;
+            background: #f5f7fb;
+            padding: 30px;
+        }
+
+        .box {
+            max-width: 550px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 6px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 11px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 20px;
+            padding: 12px;
+            border: none;
+            background: #2563eb;
+            color: white;
+            border-radius: 6px;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 15px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="box">
+
+    <h1>Add Expense</h1>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+
+        <label>Title</label>
+
+        <input
+            type="text"
+            name="title"
+            required
+        >
+
+
+        <label>Category</label>
+
+        <select
+            name="category"
+            required
+        >
+
+            <option value="rent">
+                Rent
+            </option>
+
+            <option value="salary">
+                Salary
+            </option>
+
+            <option value="electricity">
+                Electricity
+            </option>
+
+            <option value="marketing">
+                Marketing
+            </option>
+
+            <option value="transport">
+                Transport
+            </option>
+
+            <option value="office">
+                Office
+            </option>
+
+            <option value="other">
+                Other
+            </option>
+
+        </select>
+
+
+        <label>Amount</label>
+
+        <input
+            type="number"
+            name="amount"
+            step="0.01"
+            min="0"
+            required
+        >
+
+
+        <label>Expense Date</label>
+
+        <input
+            type="date"
+            name="expense_date"
+            required
+        >
+
+
+        <label>Description</label>
+
+        <textarea
+            name="description"
+            rows="4"
+        ></textarea>
+
+
+        <button type="submit">
+            Save Expense
+        </button>
+
+    </form>
+
+
+    <a
+        href="{% url 'expense_list' %}"
+        class="back"
+    >
+        ← Back to Expenses
+    </a>
+
+</div>
+
+</body>
+
+</html>

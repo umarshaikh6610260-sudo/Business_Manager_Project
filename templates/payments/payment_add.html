@@ -1,0 +1,403 @@
+<!-- <!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Add Payment</title>
+
+    <style>
+
+        body {
+            font-family: Arial;
+            background: #f5f7fb;
+            padding: 30px;
+        }
+
+        .box {
+            max-width: 500px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 11px;
+            margin: 8px 0 18px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            background: #2563eb;
+            color: white;
+            border-radius: 6px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="box">
+
+    <h2>Add Payment</h2>
+
+    <p>
+        Invoice:
+        <strong>{{ invoice.invoice_number }}</strong>
+    </p>
+
+    <p>
+        Total:
+        ₹{{ invoice.grand_total }}
+    </p>
+
+    <p>
+        Already Paid:
+        ₹{{ invoice.paid_amount }}
+    </p>
+
+    <p>
+        Pending:
+        <strong>₹{{ invoice.pending_amount }}</strong>
+    </p>
+
+    <hr>
+
+    {% for message in messages %}
+        <p>{{ message }}</p>
+    {% endfor %}
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <label>Payment Amount</label>
+
+        <input
+            type="number"
+            name="amount"
+            step="0.01"
+            max="{{ invoice.pending_amount }}"
+            required
+        >
+
+        <label>Payment Method</label>
+
+        <select name="payment_method">
+
+            <option value="cash">Cash</option>
+            <option value="upi">UPI</option>
+            <option value="bank">Bank Transfer</option>
+            <option value="card">Card</option>
+            <option value="other">Other</option>
+
+        </select>
+
+        <label>Payment Date</label>
+
+        <input
+            type="date"
+            name="payment_date"
+            value="{{ today|date:'Y-m-d' }}"
+            required
+        >
+
+        <label>Notes</label>
+
+        <textarea name="notes"></textarea>
+
+        <button type="submit">
+            Add Payment
+        </button>
+
+    </form>
+
+</div>
+
+</body>
+
+</html> -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Add Payment</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px;
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+        }
+
+        .container {
+            max-width: 550px;
+            margin: auto;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        .invoice-info {
+            background: #f8fafc;
+            padding: 18px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .pending {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 7px;
+            font-size: 15px;
+        }
+
+        textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 25px;
+            padding: 13px;
+            border: none;
+            border-radius: 7px;
+            background: #2563eb;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 15px;
+            text-decoration: none;
+            color: #2563eb;
+        }
+
+        .message {
+            padding: 10px;
+            background: #fee2e2;
+            margin-bottom: 15px;
+            border-radius: 6px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <h1>Add Payment</h1>
+
+
+        {% for message in messages %}
+
+            <div class="message">
+                {{ message }}
+            </div>
+
+        {% endfor %}
+
+
+        <div class="invoice-info">
+
+            <div class="info-row">
+
+                <span>Invoice</span>
+
+                <strong>
+                    {{ invoice.invoice_number }}
+                </strong>
+
+            </div>
+
+
+            <div class="info-row">
+
+                <span>Customer</span>
+
+                <strong>
+                    {{ invoice.customer.name }}
+                </strong>
+
+            </div>
+
+
+            <div class="info-row">
+
+                <span>Invoice Total</span>
+
+                <strong>
+                    ₹{{ invoice.grand_total }}
+                </strong>
+
+            </div>
+
+
+            <div class="info-row">
+
+                <span>Already Paid</span>
+
+                <strong>
+                    ₹{{ invoice.paid_amount }}
+                </strong>
+
+            </div>
+
+
+            <div class="info-row pending">
+
+                <span>Pending</span>
+
+                <span>
+                    ₹{{ invoice.pending_amount }}
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+
+            <label>
+                Payment Amount
+            </label>
+
+            <input
+                type="number"
+                name="amount"
+                step="0.01"
+                min="0.01"
+                max="{{ invoice.pending_amount }}"
+                required
+            >
+
+
+            <label>
+                Payment Method
+            </label>
+
+            <select name="payment_method" required>
+
+                <option value="cash">
+                    Cash
+                </option>
+
+                <option value="upi">
+                    UPI
+                </option>
+
+                <option value="bank">
+                    Bank Transfer
+                </option>
+
+                <option value="card">
+                    Card
+                </option>
+
+                <option value="other">
+                    Other
+                </option>
+
+            </select>
+
+
+            <label>
+                Payment Date
+            </label>
+
+            <input
+                type="date"
+                name="payment_date"
+                value="{{ today|date:'Y-m-d' }}"
+                required
+            >
+
+
+            <label>
+                Notes
+            </label>
+
+            <textarea
+                name="notes"
+                placeholder="Optional notes..."
+            ></textarea>
+
+
+            <button type="submit">
+                Add Payment
+            </button>
+
+        </form>
+
+
+        <a
+            href="{% url 'invoice_detail' invoice.id %}"
+            class="back"
+        >
+            ← Back to Invoice
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,262 @@
+<!-- <!doctype html>
+<html>
+  <head>
+    <title>Edit Expense</title>
+
+    <style>
+      body {
+        font-family: Arial;
+        background: #f5f7fb;
+        padding: 30px;
+      }
+
+      .box {
+        max-width: 500px;
+        margin: auto;
+        background: white;
+        padding: 30px;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        padding: 11px;
+        margin: 8px 0 18px;
+        box-sizing: border-box;
+      }
+
+      button {
+        width: 100%;
+        padding: 12px;
+        background: #2563eb;
+        color: white;
+        border: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="box">
+      <h2>Edit Expense</h2>
+
+      <form method="POST">
+        {% csrf_token %}
+
+        <label>Title</label>
+
+        <input type="text" name="title" required />
+
+        <label>Category</label>
+
+        <select name="category">
+          <option value="rent">Rent</option>
+          <option value="salary">Salary</option>
+          <option value="electricity">Electricity</option>
+          <option value="marketing">Marketing</option>
+          <option value="transport">Transport</option>
+          <option value="office">Office</option>
+          <option value="other">Other</option>
+        </select>
+
+        <label>Amount</label>
+
+        <input type="number" name="amount" step="0.01" required />
+
+        <label>Date</label>
+
+        <input type="date" name="expense_date" required />
+        <input type="text" name="title" value="{{ expense.title }}" required />
+        <input
+          type="number"
+          name="amount"
+          value="{{ expense.amount }}"
+          step="0.01"
+          required
+        />
+        <input
+          type="date"
+          name="expense_date"
+          value="{{ expense.expense_date|date:'Y-m-d' }}"
+          required
+        />
+
+        <label>Description</label>
+
+        <textarea name="description"></textarea>
+
+        <button type="submit">Save Expense</button>
+      </form>
+    </div>
+  </body>
+</html> -->
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Edit Expense</title>
+
+    <style>
+
+        body {
+            font-family: Arial;
+            background: #f5f7fb;
+            padding: 30px;
+        }
+
+        .box {
+            max-width: 550px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 6px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 11px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 20px;
+            padding: 12px;
+            border: none;
+            background: #2563eb;
+            color: white;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="box">
+
+    <h1>Edit Expense</h1>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+
+        <label>Title</label>
+
+        <input
+            type="text"
+            name="title"
+            value="{{ expense.title }}"
+            required
+        >
+
+
+        <label>Category</label>
+
+        <select
+            name="category"
+            required
+        >
+
+            <option
+                value="rent"
+                {% if expense.category == 'rent' %}selected{% endif %}
+            >
+                Rent
+            </option>
+
+            <option
+                value="salary"
+                {% if expense.category == 'salary' %}selected{% endif %}
+            >
+                Salary
+            </option>
+
+            <option
+                value="electricity"
+                {% if expense.category == 'electricity' %}selected{% endif %}
+            >
+                Electricity
+            </option>
+
+            <option
+                value="marketing"
+                {% if expense.category == 'marketing' %}selected{% endif %}
+            >
+                Marketing
+            </option>
+
+            <option
+                value="transport"
+                {% if expense.category == 'transport' %}selected{% endif %}
+            >
+                Transport
+            </option>
+
+            <option
+                value="office"
+                {% if expense.category == 'office' %}selected{% endif %}
+            >
+                Office
+            </option>
+
+            <option
+                value="other"
+                {% if expense.category == 'other' %}selected{% endif %}
+            >
+                Other
+            </option>
+
+        </select>
+
+
+        <label>Amount</label>
+
+        <input
+            type="number"
+            name="amount"
+            value="{{ expense.amount }}"
+            step="0.01"
+            min="0"
+            required
+        >
+
+
+        <label>Expense Date</label>
+
+        <input
+            type="date"
+            name="expense_date"
+            value="{{ expense.expense_date|date:'Y-m-d' }}"
+            required
+        >
+
+
+        <label>Description</label>
+
+        <textarea
+            name="description"
+            rows="4"
+        >{{ expense.description }}</textarea>
+
+
+        <button type="submit">
+            Update Expense
+        </button>
+
+    </form>
+
+</div>
+
+</body>
+
+</html>

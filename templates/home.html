@@ -1,0 +1,979 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BusinessManager | Business Management System</title>
+
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+</head>
+
+<body>
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="site-header">
+
+    <div class="header-inner">
+
+        <a href="{% url 'home' %}" class="brand">
+
+            <span class="brand-logo">BM</span>
+
+            <span class="brand-name">
+                BusinessManager
+            </span>
+
+        </a>
+
+
+        <button
+            class="menu-toggle"
+            id="menuToggle"
+            type="button"
+            aria-label="Open navigation"
+        >
+            ☰
+        </button>
+
+
+        <nav class="main-nav" id="mainNav">
+
+            <a href="{% url 'home' %}" class="active">
+                Home
+            </a>
+
+            <a href="{% url 'about' %}">
+                About
+            </a>
+
+            <a href="{% url 'products' %}">
+                Products
+            </a>
+
+            <a href="{% url 'services' %}">
+                Services
+            </a>
+
+            <a href="{% url 'contact' %}">
+                Contact
+            </a>
+
+            <a href="{% url 'dashboard' %}" class="dashboard-btn">
+                Dashboard
+            </a>
+
+        </nav>
+
+    </div>
+
+</header>
+
+
+<main>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero">
+
+    <div class="hero-background-shape shape-one"></div>
+    <div class="hero-background-shape shape-two"></div>
+
+
+    <div class="page-container hero-grid">
+
+        <div class="hero-content reveal">
+
+            <p class="eyebrow">
+                BUSINESS MANAGEMENT SYSTEM
+            </p>
+
+            <h1>
+                Run your business
+                <span>with less paperwork.</span>
+            </h1>
+
+            <p class="hero-text">
+                BusinessManager brings customers, products, quotations,
+                invoices, payments, expenses and reports together in one
+                practical system.
+            </p>
+
+
+            <div class="hero-buttons">
+
+                <a
+                    href="{% url 'dashboard' %}"
+                    class="btn btn-primary"
+                >
+                    Open Dashboard
+                </a>
+
+                <a
+                    href="{% url 'about' %}"
+                    class="btn btn-secondary"
+                >
+                    Learn More
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT SIDE BUSINESS PANEL -->
+
+        <div class="hero-panel reveal">
+
+            <div class="panel-top">
+
+                <div>
+                    <span class="panel-small">
+                        BUSINESS OVERVIEW
+                    </span>
+
+                    <h3>
+                        This month
+                    </h3>
+                </div>
+
+                <span class="panel-status">
+                    Active
+                </span>
+
+            </div>
+
+
+            <div class="panel-sales">
+
+                <span>Total sales</span>
+
+                <strong>₹84,500</strong>
+
+                <small>
+                    Updated from invoices
+                </small>
+
+            </div>
+
+
+            <div class="panel-stats">
+
+                <div>
+                    <span>Customers</span>
+                    <strong>128</strong>
+                </div>
+
+                <div>
+                    <span>Pending</span>
+                    <strong>₹18,200</strong>
+                </div>
+
+            </div>
+
+
+            <div class="mini-chart">
+
+                <span style="height: 35%;"></span>
+                <span style="height: 52%;"></span>
+                <span style="height: 45%;"></span>
+                <span style="height: 68%;"></span>
+                <span style="height: 58%;"></span>
+                <span style="height: 82%;"></span>
+                <span style="height: 72%;"></span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     INTRO
+===================================================== -->
+
+<section class="intro section">
+
+    <div class="page-container intro-grid">
+
+        <div class="intro-heading reveal">
+
+            <p class="section-label">
+                BUILT FOR EVERYDAY WORK
+            </p>
+
+            <h2>
+                Everything important about your business,
+                in one place.
+            </h2>
+
+        </div>
+
+
+        <div class="intro-text reveal">
+
+            <p>
+                BusinessManager is designed around the work businesses
+                actually do every day. Instead of keeping customer details,
+                sales documents, payment records and expenses in different
+                places, everything stays connected.
+            </p>
+
+            <p>
+                Whether you are checking a customer's pending amount,
+                creating an invoice or reviewing business performance,
+                the information is available from one system.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     NUMBERS
+===================================================== -->
+
+<section class="numbers">
+
+    <div class="page-container numbers-grid">
+
+        <div class="number-item reveal">
+
+            <strong>01</strong>
+
+            <span>
+                Customer records
+            </span>
+
+        </div>
+
+
+        <div class="number-item reveal">
+
+            <strong>02</strong>
+
+            <span>
+                Product & stock
+            </span>
+
+        </div>
+
+
+        <div class="number-item reveal">
+
+            <strong>03</strong>
+
+            <span>
+                Billing & payments
+            </span>
+
+        </div>
+
+
+        <div class="number-item reveal">
+
+            <strong>04</strong>
+
+            <span>
+                Reports & insights
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     MODULES
+===================================================== -->
+
+<section class="modules section">
+
+    <div class="page-container">
+
+        <div class="section-heading reveal">
+
+            <div>
+
+                <p class="section-label">
+                    WHAT YOU CAN MANAGE
+                </p>
+
+                <h2>
+                    The tools your business uses every day.
+                </h2>
+
+            </div>
+
+            <p>
+                Designed around practical business tasks,
+                without unnecessary software complexity.
+            </p>
+
+        </div>
+
+
+        <div class="module-grid">
+
+
+            <!-- CARD 01 -->
+
+            <article class="module-card reveal">
+
+                <div class="card-number">
+                    01
+                </div>
+
+                <div class="card-icon">
+                    👥
+                </div>
+
+                <div class="card-content">
+
+                    <h3>
+                        Customers
+                    </h3>
+
+                    <p>
+                        Maintain customer details, notes, purchase
+                        history, follow-ups and pending amounts.
+                    </p>
+
+                </div>
+
+                <a
+                    href="{% url 'dashboard' %}"
+                    class="card-link"
+                >
+                    Customer CRM
+                    <span>→</span>
+                </a>
+
+            </article>
+
+
+
+            <!-- CARD 02 -->
+
+            <article class="module-card reveal">
+
+                <div class="card-number">
+                    02
+                </div>
+
+                <div class="card-icon">
+                    📦
+                </div>
+
+                <div class="card-content">
+
+                    <h3>
+                        Products & Stock
+                    </h3>
+
+                    <p>
+                        Keep product prices, stock levels and
+                        low-stock information organized.
+                    </p>
+
+                </div>
+
+                <a
+                    href="{% url 'dashboard' %}"
+                    class="card-link"
+                >
+                    Manage products
+                    <span>→</span>
+                </a>
+
+            </article>
+
+
+
+            <!-- CARD 03 -->
+
+            <article class="module-card reveal">
+
+                <div class="card-number">
+                    03
+                </div>
+
+                <div class="card-icon">
+                    📄
+                </div>
+
+                <div class="card-content">
+
+                    <h3>
+                        Quotations
+                    </h3>
+
+                    <p>
+                        Prepare quotations for customers and
+                        keep sales discussions organized.
+                    </p>
+
+                </div>
+
+                <a
+                    href="{% url 'dashboard' %}"
+                    class="card-link"
+                >
+                    Create quotation
+                    <span>→</span>
+                </a>
+
+            </article>
+
+
+
+            <!-- CARD 04 -->
+
+            <article class="module-card reveal">
+
+                <div class="card-number">
+                    04
+                </div>
+
+                <div class="card-icon">
+                    🧾
+                </div>
+
+                <div class="card-content">
+
+                    <h3>
+                        Invoices
+                    </h3>
+
+                    <p>
+                        Create invoices, calculate totals and
+                        automatically track product stock.
+                    </p>
+
+                </div>
+
+                <a
+                    href="{% url 'dashboard' %}"
+                    class="card-link"
+                >
+                    Create invoice
+                    <span>→</span>
+                </a>
+
+            </article>
+
+
+
+            <!-- CARD 05 -->
+
+            <article class="module-card reveal">
+
+                <div class="card-number">
+                    05
+                </div>
+
+                <div class="card-icon">
+                    💳
+                </div>
+
+                <div class="card-content">
+
+                    <h3>
+                        Payments
+                    </h3>
+
+                    <p>
+                        Record full or partial payments and
+                        keep track of pending amounts.
+                    </p>
+
+                </div>
+
+                <a
+                    href="{% url 'dashboard' %}"
+                    class="card-link"
+                >
+                    Track payments
+                    <span>→</span>
+                </a>
+
+            </article>
+
+
+
+            <!-- CARD 06 -->
+
+            <article class="module-card reveal">
+
+                <div class="card-number">
+                    06
+                </div>
+
+                <div class="card-icon">
+                    💰
+                </div>
+
+                <div class="card-content">
+
+                    <h3>
+                        Expenses
+                    </h3>
+
+                    <p>
+                        Record business expenses and understand
+                        where your money is being spent.
+                    </p>
+
+                </div>
+
+                <a
+                    href="{% url 'dashboard' %}"
+                    class="card-link"
+                >
+                    Manage expenses
+                    <span>→</span>
+                </a>
+
+            </article>
+
+
+
+            <!-- CARD 07 -->
+
+            <article class="module-card reveal">
+
+                <div class="card-number">
+                    07
+                </div>
+
+                <div class="card-icon">
+                    📊
+                </div>
+
+                <div class="card-content">
+
+                    <h3>
+                        Reports
+                    </h3>
+
+                    <p>
+                        Review sales, expenses, payments and
+                        business performance from one place.
+                    </p>
+
+                </div>
+
+                <a
+                    href="{% url 'dashboard' %}"
+                    class="card-link"
+                >
+                    View reports
+                    <span>→</span>
+                </a>
+
+            </article>
+
+
+
+            <!-- CARD 08 -->
+
+            <article class="module-card reveal">
+
+                <div class="card-number">
+                    08
+                </div>
+
+                <div class="card-icon">
+                    🔐
+                </div>
+
+                <div class="card-content">
+
+                    <h3>
+                        User Access
+                    </h3>
+
+                    <p>
+                        Keep business information protected with
+                        login and role-based access.
+                    </p>
+
+                </div>
+
+                <a
+                    href="{% url 'login' %}"
+                    class="card-link"
+                >
+                    Secure access
+                    <span>→</span>
+                </a>
+
+            </article>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     WORKFLOW
+===================================================== -->
+
+<section class="workflow section">
+
+    <div class="page-container workflow-grid">
+
+        <div class="workflow-content reveal">
+
+            <p class="section-label">
+                SIMPLE WORKFLOW
+            </p>
+
+            <h2>
+                From customer enquiry
+                to completed payment.
+            </h2>
+
+            <p class="workflow-description">
+                Keep your everyday sales process connected.
+                Add customers, manage products, prepare quotations,
+                create invoices and record payments without jumping
+                between different systems.
+            </p>
+
+
+            <div class="workflow-list">
+
+                <div class="workflow-step">
+
+                    <span>01</span>
+
+                    <div>
+                        <strong>
+                            Customer
+                        </strong>
+
+                        <p>
+                            Store customer information.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="workflow-step">
+
+                    <span>02</span>
+
+                    <div>
+                        <strong>
+                            Quotation
+                        </strong>
+
+                        <p>
+                            Prepare and share pricing.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="workflow-step">
+
+                    <span>03</span>
+
+                    <div>
+                        <strong>
+                            Invoice
+                        </strong>
+
+                        <p>
+                            Generate the final bill.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="workflow-step">
+
+                    <span>04</span>
+
+                    <div>
+                        <strong>
+                            Payment
+                        </strong>
+
+                        <p>
+                            Record payment and pending amount.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="workflow-visual reveal">
+
+            <div class="receipt-card">
+
+                <div class="receipt-header">
+
+                    <div>
+                        <span>
+                            INVOICE
+                        </span>
+
+                        <strong>
+                            #INV-1048
+                        </strong>
+                    </div>
+
+                    <small>
+                        PAID
+                    </small>
+
+                </div>
+
+
+                <div class="receipt-customer">
+
+                    <span>
+                        Customer
+                    </span>
+
+                    <strong>
+                        Raj Enterprise
+                    </strong>
+
+                </div>
+
+
+                <div class="receipt-line">
+                    <span>Products</span>
+                    <strong>₹42,500</strong>
+                </div>
+
+                <div class="receipt-line">
+                    <span>Discount</span>
+                    <strong>− ₹2,500</strong>
+                </div>
+
+                <div class="receipt-total">
+                    <span>Total</span>
+                    <strong>₹40,000</strong>
+                </div>
+
+
+                <div class="receipt-payment">
+                    Payment received
+                    <strong>₹40,000</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     CTA
+===================================================== -->
+
+<section class="cta">
+
+    <div class="page-container cta-inner reveal">
+
+        <div>
+
+            <p class="section-label">
+                READY WHEN YOU ARE
+            </p>
+
+            <h2>
+                Keep your business
+                organized.
+            </h2>
+
+            <p>
+                Access your BusinessManager dashboard
+                and manage your daily business operations.
+            </p>
+
+        </div>
+
+
+        <a
+            href="{% url 'dashboard' %}"
+            class="btn btn-light"
+        >
+            Go to Dashboard
+            <span>→</span>
+        </a>
+
+    </div>
+
+</section>
+
+</main>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="site-footer">
+
+    <div class="page-container footer-grid">
+
+        <div class="footer-brand">
+
+            <a href="{% url 'home' %}" class="brand footer-logo">
+
+                <span class="brand-logo">
+                    BM
+                </span>
+
+                <span class="brand-name">
+                    BusinessManager
+                </span>
+
+            </a>
+
+            <p>
+                A practical business management system for
+                customers, products, billing, payments and reports.
+            </p>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h4>
+                Website
+            </h4>
+
+            <a href="{% url 'home' %}">
+                Home
+            </a>
+
+            <a href="{% url 'about' %}">
+                About
+            </a>
+
+            <a href="{% url 'products' %}">
+                Products
+            </a>
+
+            <a href="{% url 'services' %}">
+                Services
+            </a>
+
+            <a href="{% url 'contact' %}">
+                Contact
+            </a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h4>
+                System
+            </h4>
+
+            <a href="{% url 'dashboard' %}">
+                Dashboard
+            </a>
+
+            <a href="{% url 'login' %}">
+                Login
+            </a>
+
+            <a href="{% url 'register' %}">
+                Register
+            </a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h4>
+                Modules
+            </h4>
+
+            <a href="{% url 'dashboard' %}">
+                Customers
+            </a>
+
+            <a href="{% url 'dashboard' %}">
+                Billing
+            </a>
+
+            <a href="{% url 'dashboard' %}">
+                Payments
+            </a>
+
+            <a href="{% url 'dashboard' %}">
+                Reports
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="page-container footer-bottom">
+
+        <span>
+            © <span id="currentYear"></span> BusinessManager
+        </span>
+
+        <span>
+            Built for practical business work.
+        </span>
+
+    </div>
+
+</footer>
+
+
+<script src="{% static 'js/main.js' %}"></script>
+
+</body>
+</html>

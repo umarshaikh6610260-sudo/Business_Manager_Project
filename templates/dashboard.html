@@ -1,0 +1,847 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BusinessManager | Dashboard</title>
+
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+</head>
+
+<body>
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="brand">
+        <div class="brand-logo">BM</div>
+
+        <div class="brand-text">
+            <strong>BusinessManager</strong>
+            <span>Business Control</span>
+        </div>
+    </div>
+
+
+    <div class="sidebar-section">
+
+        <p class="sidebar-label">MAIN</p>
+
+        <a href="/account/" class="side-link active">
+            <span class="side-icon">⌂</span>
+            <span>Dashboard</span>
+        </a>
+
+        <a href="/customers/" class="side-link">
+            <span class="side-icon">♟</span>
+            <span>Customers</span>
+        </a>
+
+        <a href="/products/manage/" class="side-link">
+            <span class="side-icon">▣</span>
+            <span>Products & Stock</span>
+        </a>
+
+        <a href="/billing/" class="side-link">
+            <span class="side-icon">▤</span>
+            <span>Quotations & Invoices</span>
+        </a>
+
+        <a href="/payments/" class="side-link">
+            <span class="side-icon">₹</span>
+            <span>Payments</span>
+        </a>
+
+        <a href="/expenses/" class="side-link">
+            <span class="side-icon">◉</span>
+            <span>Expenses</span>
+        </a>
+
+        <a href="/reports/" class="side-link">
+            <span class="side-icon">▥</span>
+            <span>Reports</span>
+        </a>
+
+    </div>
+
+
+    <div class="sidebar-section">
+
+        <p class="sidebar-label">SYSTEM</p>
+
+        <a href="/admin/" class="side-link">
+            <span class="side-icon">⚙</span>
+            <span>Admin Panel</span>
+        </a>
+
+        <a href="/account/logout/" class="side-link logout-link">
+            <span class="side-icon">↪</span>
+            <span>Logout</span>
+        </a>
+
+    </div>
+
+
+    <div class="sidebar-footer">
+
+        <div class="user-mini">
+
+            <div class="user-avatar">
+                {{ user.username|first|upper }}
+            </div>
+
+            <div>
+                <strong>{{ user.username }}</strong>
+                <span>Business User</span>
+            </div>
+
+        </div>
+
+    </div>
+
+</aside>
+
+
+
+<!-- =====================================================
+     MAIN AREA
+===================================================== -->
+
+<div class="main-area">
+
+
+    <!-- TOP NAVBAR -->
+
+    <header class="topbar">
+
+        <button class="mobile-menu" id="mobileMenu">
+            ☰
+        </button>
+
+        <div class="page-location">
+            <span>Business</span>
+            <strong>/ Dashboard</strong>
+        </div>
+
+
+        <div class="top-actions">
+
+            <button class="notification-btn" id="notificationBtn">
+                ♧
+                <span class="notification-dot"></span>
+            </button>
+
+            <div class="top-user">
+
+                <div class="top-avatar">
+                    {{ user.username|first|upper }}
+                </div>
+
+                <div class="top-user-info">
+                    <strong>{{ user.username }}</strong>
+                    <span>Business User</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =================================================
+         CONTENT
+    ================================================= -->
+
+    <main class="dashboard-content">
+
+
+        <!-- PAGE HEADER -->
+
+        <section class="page-header reveal">
+
+            <div>
+
+                <span class="eyebrow">
+                    BUSINESS OVERVIEW
+                </span>
+
+                <h1>
+                    Welcome back, {{ user.username }}
+                </h1>
+
+                <p>
+                    Here's what's happening with your business today.
+                </p>
+
+            </div>
+
+
+            <a href="/billing/invoice/create/" class="primary-btn">
+                <span>+</span>
+                New Invoice
+            </a>
+
+        </section>
+
+
+
+        <!-- =================================================
+             FINANCIAL CARDS
+        ================================================= -->
+
+        <section class="stats-grid">
+
+
+            <!-- SALES -->
+
+            <div class="stat-card sales-card reveal">
+
+                <div class="stat-top">
+
+                    <div class="stat-icon">
+                        ₹
+                    </div>
+
+                    <span class="stat-label">
+                        TOTAL SALES
+                    </span>
+
+                </div>
+
+                <h2>
+                    ₹{{ total_sales|default:"0" }}
+                </h2>
+
+                <div class="stat-bottom">
+                    <span class="trend positive">↗</span>
+                    <span>Business sales</span>
+                </div>
+
+            </div>
+
+
+
+            <!-- EXPENSE -->
+
+            <div class="stat-card expense-card reveal">
+
+                <div class="stat-top">
+
+                    <div class="stat-icon">
+                        ↓
+                    </div>
+
+                    <span class="stat-label">
+                        TOTAL EXPENSES
+                    </span>
+
+                </div>
+
+                <h2>
+                    ₹{{ total_expenses|default:"0" }}
+                </h2>
+
+                <div class="stat-bottom">
+                    <span>Recorded expenses</span>
+                </div>
+
+            </div>
+
+
+
+            <!-- PROFIT -->
+
+            <div class="stat-card profit-card reveal">
+
+                <div class="stat-top">
+
+                    <div class="stat-icon">
+                        ↗
+                    </div>
+
+                    <span class="stat-label">
+                        NET PROFIT
+                    </span>
+
+                </div>
+
+                <h2>
+                    ₹{{ net_profit|default:"0" }}
+                </h2>
+
+                <div class="stat-bottom">
+                    <span class="trend positive">●</span>
+                    <span>Current performance</span>
+                </div>
+
+            </div>
+
+
+
+            <!-- PENDING -->
+
+            <div class="stat-card pending-card reveal">
+
+                <div class="stat-top">
+
+                    <div class="stat-icon">
+                        ⏱
+                    </div>
+
+                    <span class="stat-label">
+                        PENDING PAYMENTS
+                    </span>
+
+                </div>
+
+                <h2>
+                    ₹{{ pending_payments|default:"0" }}
+                </h2>
+
+                <div class="stat-bottom">
+                    <span class="trend warning">!</span>
+                    <span>{{ pending_invoice_count|default:"0" }} invoices pending</span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             QUICK COUNTS
+        ================================================= -->
+
+        <section class="quick-grid reveal">
+
+
+            <a href="/customers/" class="quick-card">
+
+                <div class="quick-icon customer-icon">
+                    ♟
+                </div>
+
+                <div>
+                    <span>Customers</span>
+                    <strong>{{ total_customers|default:"0" }}</strong>
+                </div>
+
+                <span class="quick-arrow">→</span>
+
+            </a>
+
+
+
+            <a href="/products/manage/" class="quick-card">
+
+                <div class="quick-icon product-icon">
+                    ▣
+                </div>
+
+                <div>
+                    <span>Products</span>
+                    <strong>{{ total_products|default:"0" }}</strong>
+                </div>
+
+                <span class="quick-arrow">→</span>
+
+            </a>
+
+
+
+            <a href="/billing/" class="quick-card">
+
+                <div class="quick-icon invoice-icon">
+                    ▤
+                </div>
+
+                <div>
+                    <span>Invoices</span>
+                    <strong>{{ total_invoices|default:"0" }}</strong>
+                </div>
+
+                <span class="quick-arrow">→</span>
+
+            </a>
+
+
+
+            <a href="/reports/" class="quick-card">
+
+                <div class="quick-icon report-icon">
+                    ▥
+                </div>
+
+                <div>
+                    <span>Reports</span>
+                    <strong>View</strong>
+                </div>
+
+                <span class="quick-arrow">→</span>
+
+            </a>
+
+        </section>
+
+
+
+        <!-- =================================================
+             LOWER CONTENT
+        ================================================= -->
+
+        <section class="dashboard-columns">
+
+
+            <!-- RECENT INVOICES -->
+
+            <div class="panel reveal">
+
+                <div class="panel-header">
+
+                    <div>
+                        <span class="panel-kicker">
+                            SALES ACTIVITY
+                        </span>
+
+                        <h3>Recent Invoices</h3>
+                    </div>
+
+                    <a href="/billing/" class="view-link">
+                        View all →
+                    </a>
+
+                </div>
+
+
+                {% if recent_invoices %}
+
+                    <div class="invoice-list">
+
+                        {% for invoice in recent_invoices %}
+
+                            <div class="invoice-row">
+
+                                <div class="invoice-main">
+
+                                    <div class="invoice-symbol">
+                                        ₹
+                                    </div>
+
+                                    <div>
+
+                                        <strong>
+                                            {{ invoice.invoice_number }}
+                                        </strong>
+
+                                        <span>
+                                            {{ invoice.customer.name }}
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="invoice-amount">
+
+                                    <strong>
+                                        ₹{{ invoice.grand_total }}
+                                    </strong>
+
+                                    {% if invoice.status == "paid" %}
+
+                                        <span class="status paid">
+                                            Paid
+                                        </span>
+
+                                    {% elif invoice.status == "partial" %}
+
+                                        <span class="status partial">
+                                            Partial
+                                        </span>
+
+                                    {% elif invoice.status == "overdue" %}
+
+                                        <span class="status overdue">
+                                            Overdue
+                                        </span>
+
+                                    {% else %}
+
+                                        <span class="status unpaid">
+                                            Unpaid
+                                        </span>
+
+                                    {% endif %}
+
+                                </div>
+
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                {% else %}
+
+                    <div class="empty-state">
+
+                        <div class="empty-icon">
+                            ▤
+                        </div>
+
+                        <h4>No invoices yet</h4>
+
+                        <p>
+                            Your latest invoices will appear here.
+                        </p>
+
+                        <a href="/billing/invoice/create/" class="small-btn">
+                            Create invoice
+                        </a>
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+
+
+            <!-- FOLLOW UPS -->
+
+            <div class="panel reveal">
+
+                <div class="panel-header">
+
+                    <div>
+                        <span class="panel-kicker">
+                            CUSTOMER ACTIVITY
+                        </span>
+
+                        <h3>Upcoming Follow-ups</h3>
+                    </div>
+
+                    <a href="/customers/" class="view-link">
+                        Customers →
+                    </a>
+
+                </div>
+
+
+                {% if upcoming_followups %}
+
+                    <div class="followup-list">
+
+                        {% for customer in upcoming_followups %}
+
+                            <div class="followup-row">
+
+                                <div class="followup-avatar">
+                                    {{ customer.name|first|upper }}
+                                </div>
+
+                                <div class="followup-info">
+
+                                    <strong>
+                                        {{ customer.name }}
+                                    </strong>
+
+                                    <span>
+                                        {{ customer.phone }}
+                                    </span>
+
+                                </div>
+
+                                <div class="followup-date">
+
+                                    <span>
+                                        Follow-up
+                                    </span>
+
+                                    <strong>
+                                        {{ customer.follow_up_date }}
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                {% else %}
+
+                    <div class="empty-state">
+
+                        <div class="empty-icon">
+                            ✓
+                        </div>
+
+                        <h4>No follow-ups due</h4>
+
+                        <p>
+                            Upcoming customer follow-ups will appear here.
+                        </p>
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             MODULES
+        ================================================= -->
+
+        <section class="modules-section reveal">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="panel-kicker">
+                        BUSINESS TOOLS
+                    </span>
+
+                    <h3>
+                        Everything in one place
+                    </h3>
+
+                </div>
+
+                <p>
+                    Manage the everyday work of your business from one system.
+                </p>
+
+            </div>
+
+
+            <div class="modules-grid">
+
+
+                <a href="/customers/" class="module-card">
+
+                    <span class="module-number">01</span>
+
+                    <div class="module-icon">
+                        ♟
+                    </div>
+
+                    <h4>Customers</h4>
+
+                    <p>
+                        Maintain customer details, notes, purchase history and pending amounts.
+                    </p>
+
+                    <span class="module-link">
+                        Open customers →
+                    </span>
+
+                </a>
+
+
+
+                <a href="/products/manage/" class="module-card">
+
+                    <span class="module-number">02</span>
+
+                    <div class="module-icon">
+                        ▣
+                    </div>
+
+                    <h4>Products & Stock</h4>
+
+                    <p>
+                        Keep product prices, stock levels and low-stock information organized.
+                    </p>
+
+                    <span class="module-link">
+                        Manage products →
+                    </span>
+
+                </a>
+
+
+
+                <a href="/billing/" class="module-card">
+
+                    <span class="module-number">03</span>
+
+                    <div class="module-icon">
+                        ▤
+                    </div>
+
+                    <h4>Quotations</h4>
+
+                    <p>
+                        Prepare quotations for customers and keep sales discussions organized.
+                    </p>
+
+                    <span class="module-link">
+                        Create quotation →
+                    </span>
+
+                </a>
+
+
+
+                <a href="/billing/" class="module-card">
+
+                    <span class="module-number">04</span>
+
+                    <div class="module-icon">
+                        ▧
+                    </div>
+
+                    <h4>Invoices</h4>
+
+                    <p>
+                        Create invoices, calculate totals and automatically track product stock.
+                    </p>
+
+                    <span class="module-link">
+                        Create invoice →
+                    </span>
+
+                </a>
+
+
+
+                <a href="/payments/" class="module-card">
+
+                    <span class="module-number">05</span>
+
+                    <div class="module-icon">
+                        ₹
+                    </div>
+
+                    <h4>Payments</h4>
+
+                    <p>
+                        Record payments, partial payments and pending customer amounts.
+                    </p>
+
+                    <span class="module-link">
+                        Track payments →
+                    </span>
+
+                </a>
+
+
+
+                <a href="/expenses/" class="module-card">
+
+                    <span class="module-number">06</span>
+
+                    <div class="module-icon">
+                        ◉
+                    </div>
+
+                    <h4>Expenses</h4>
+
+                    <p>
+                        Record business expenses and understand where your money is being spent.
+                    </p>
+
+                    <span class="module-link">
+                        Manage expenses →
+                    </span>
+
+                </a>
+
+
+
+                <a href="/reports/" class="module-card">
+
+                    <span class="module-number">07</span>
+
+                    <div class="module-icon">
+                        ▥
+                    </div>
+
+                    <h4>Reports</h4>
+
+                    <p>
+                        Review sales, expenses, payments and business performance.
+                    </p>
+
+                    <span class="module-link">
+                        View reports →
+                    </span>
+
+                </a>
+
+
+
+                <a href="/admin/" class="module-card">
+
+                    <span class="module-number">08</span>
+
+                    <div class="module-icon">
+                        ⚙
+                    </div>
+
+                    <h4>Administration</h4>
+
+                    <p>
+                        Manage users, business data and system administration.
+                    </p>
+
+                    <span class="module-link">
+                        Open admin →
+                    </span>
+
+                </a>
+
+            </div>
+
+        </section>
+
+
+
+    </main>
+
+
+
+    <!-- FOOTER -->
+
+    <footer class="dashboard-footer">
+
+        <span>
+            © <span id="currentYear"></span> BusinessManager
+        </span>
+
+        <span>
+            Business management made simpler.
+        </span>
+
+    </footer>
+
+</div>
+
+
+
+<!-- MOBILE OVERLAY -->
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+
+<script src="{% static 'js/dashboard.js' %}"></script>
+
+</body>
+</html>

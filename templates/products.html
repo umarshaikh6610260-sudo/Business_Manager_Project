@@ -1,0 +1,297 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Products | BusinessManager</title>
+
+    <link rel="stylesheet" href="{% static 'css/products.css' %}">
+
+</head>
+
+<body>
+
+<header class="site-header">
+
+    <div class="nav-wrap">
+
+        <a href="{% url 'home' %}" class="brand">
+            <span class="brand-mark">BM</span>
+            <span>BusinessManager</span>
+        </a>
+
+        <button class="menu-toggle" id="menuToggle">☰</button>
+
+        <nav class="main-nav" id="mainNav">
+
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'about' %}">About</a>
+            <a href="{% url 'products' %}" class="active">Products</a>
+            <a href="{% url 'services' %}">Services</a>
+            <a href="{% url 'contact' %}">Contact</a>
+
+            {% if user.is_authenticated %}
+                <a href="{% url 'dashboard' %}" class="nav-button">
+                    Dashboard
+                </a>
+            {% else %}
+                <a href="{% url 'login' %}" class="nav-button">
+                    Login
+                </a>
+            {% endif %}
+
+        </nav>
+
+    </div>
+
+</header>
+
+
+<main>
+
+    <section class="products-hero reveal">
+
+        <span class="eyebrow">BUSINESS TOOLS</span>
+
+        <h1>
+            The tools your business
+            <span>uses every day.</span>
+        </h1>
+
+        <p>
+            BusinessManager brings the core parts of your business
+            together without making everyday work unnecessarily complicated.
+        </p>
+
+    </section>
+
+
+    <section class="products-section">
+
+        <div class="product-grid">
+
+            <article class="product-card reveal">
+
+                <span class="number">01</span>
+
+                <div class="icon">👥</div>
+
+                <h2>Customers</h2>
+
+                <p>
+                    Maintain customer details, notes, purchase history,
+                    follow-ups and pending amounts.
+                </p>
+
+                <a href="{% url 'dashboard' %}">
+                    Customer CRM →
+                </a>
+
+            </article>
+
+
+            <article class="product-card reveal">
+
+                <span class="number">02</span>
+
+                <div class="icon">📦</div>
+
+                <h2>Products & Stock</h2>
+
+                <p>
+                    Manage product names, SKU, purchase prices,
+                    selling prices and available stock.
+                </p>
+
+                <a href="{% url 'dashboard' %}">
+                    Manage products →
+                </a>
+
+            </article>
+
+
+            <article class="product-card reveal">
+
+                <span class="number">03</span>
+
+                <div class="icon">📄</div>
+
+                <h2>Quotations</h2>
+
+                <p>
+                    Prepare quotations for customers and keep
+                    proposed sales properly organized.
+                </p>
+
+                <a href="{% url 'dashboard' %}">
+                    Create quotation →
+                </a>
+
+            </article>
+
+
+            <article class="product-card reveal">
+
+                <span class="number">04</span>
+
+                <div class="icon">🧾</div>
+
+                <h2>Invoices</h2>
+
+                <p>
+                    Create invoices, calculate totals and automatically
+                    track product stock.
+                </p>
+
+                <a href="{% url 'dashboard' %}">
+                    Create invoice →
+                </a>
+
+            </article>
+
+
+            <article class="product-card reveal">
+
+                <span class="number">05</span>
+
+                <div class="icon">💳</div>
+
+                <h2>Payments</h2>
+
+                <p>
+                    Record full or partial payments and keep pending
+                    amounts connected with invoices.
+                </p>
+
+                <a href="{% url 'dashboard' %}">
+                    Track payments →
+                </a>
+
+            </article>
+
+
+            <article class="product-card reveal">
+
+                <span class="number">06</span>
+
+                <div class="icon">💰</div>
+
+                <h2>Expenses</h2>
+
+                <p>
+                    Record business expenses and understand where
+                    money is being spent.
+                </p>
+
+                <a href="{% url 'dashboard' %}">
+                    Manage expenses →
+                </a>
+
+            </article>
+
+
+            <article class="product-card reveal">
+
+                <span class="number">07</span>
+
+                <div class="icon">📊</div>
+
+                <h2>Reports</h2>
+
+                <p>
+                    Review sales, expenses, payments and business
+                    performance from one place.
+                </p>
+
+                <a href="{% url 'dashboard' %}">
+                    View reports →
+                </a>
+
+            </article>
+
+
+            <article class="product-card reveal">
+
+                <span class="number">08</span>
+
+                <div class="icon">🔐</div>
+
+                <h2>User Access</h2>
+
+                <p>
+                    Keep business information protected with login
+                    and role-based access.
+                </p>
+
+                <a href="{% url 'dashboard' %}">
+                    Manage access →
+                </a>
+
+            </article>
+
+        </div>
+
+    </section>
+
+
+    <section class="product-bottom reveal">
+
+        <div>
+
+            <span class="eyebrow">ONE SYSTEM</span>
+
+            <h2>
+                Less switching.
+                More control.
+            </h2>
+
+        </div>
+
+        <p>
+            Customers, products, invoices, payments, expenses and
+            reports are connected so your daily business information
+            stays in one place.
+        </p>
+
+    </section>
+
+</main>
+
+
+<footer class="site-footer">
+
+    <div class="footer-wrap">
+
+        <div>
+            <strong>BusinessManager</strong>
+            <p>Practical tools for everyday business management.</p>
+        </div>
+
+        <div class="footer-links">
+
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'about' %}">About</a>
+            <a href="{% url 'products' %}">Products</a>
+            <a href="{% url 'services' %}">Services</a>
+            <a href="{% url 'contact' %}">Contact</a>
+
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        © <span id="currentYear"></span> BusinessManager. All rights reserved.
+    </div>
+
+</footer>
+
+
+<script src="{% static 'js/main.js' %}"></script>
+
+</body>
+</html>

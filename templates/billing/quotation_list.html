@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Quotations</title>
+
+    <style>
+
+        body {
+            font-family: Arial;
+            background: #f5f7fb;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn {
+            background: #2563eb;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 25px;
+            background: white;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 14px;
+            border-bottom: 1px solid #eee;
+            text-align: left;
+        }
+
+        th {
+            background: #f8fafc;
+        }
+
+        a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+    <div class="header">
+
+        <h1>
+            Quotations
+        </h1>
+
+        <a
+            href="{% url 'create_quotation' %}"
+            class="btn"
+        >
+            + Create Quotation
+        </a>
+
+    </div>
+
+
+    <table>
+
+        <thead>
+
+            <tr>
+
+                <th>
+                    Quotation
+                </th>
+
+                <th>
+                    Customer
+                </th>
+
+                <th>
+                    Date
+                </th>
+
+                <th>
+                    Valid Until
+                </th>
+
+                <th>
+                    Status
+                </th>
+
+                <th>
+                    Action
+                </th>
+
+            </tr>
+
+        </thead>
+
+
+        <tbody>
+
+        {% for quotation in quotations %}
+
+            <tr>
+
+                <td>
+                    {{ quotation.quotation_number }}
+                </td>
+
+                <td>
+                    {{ quotation.customer.name }}
+                </td>
+
+                <td>
+                    {{ quotation.quotation_date }}
+                </td>
+
+                <td>
+                    {{ quotation.valid_until|default:"-" }}
+                </td>
+
+                <td>
+                    {{ quotation.get_status_display }}
+                </td>
+
+                <td>
+
+                    <a
+                        href="{% url 'quotation_detail' quotation.id %}"
+                    >
+                        View
+                    </a>
+
+                </td>
+
+            </tr>
+
+        {% empty %}
+
+            <tr>
+
+                <td colspan="6">
+                    No quotations found.
+                </td>
+
+            </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+</body>
+
+</html>

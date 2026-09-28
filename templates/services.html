@@ -1,0 +1,290 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Services | BusinessManager</title>
+
+    <link rel="stylesheet" href="{% static 'css/services.css' %}">
+
+</head>
+
+<body>
+
+<header class="site-header">
+
+    <div class="nav-wrap">
+
+        <a href="{% url 'home' %}" class="brand">
+            <span class="brand-mark">BM</span>
+            <span>BusinessManager</span>
+        </a>
+
+        <button class="menu-toggle" id="menuToggle">☰</button>
+
+        <nav class="main-nav" id="mainNav">
+
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'about' %}">About</a>
+            <a href="{% url 'products' %}">Products</a>
+            <a href="{% url 'services' %}" class="active">Services</a>
+            <a href="{% url 'contact' %}">Contact</a>
+
+            {% if user.is_authenticated %}
+                <a href="{% url 'dashboard' %}" class="nav-button">
+                    Dashboard
+                </a>
+            {% else %}
+                <a href="{% url 'login' %}" class="nav-button">
+                    Login
+                </a>
+            {% endif %}
+
+        </nav>
+
+    </div>
+
+</header>
+
+
+<main>
+
+    <section class="services-hero reveal">
+
+        <div>
+
+            <span class="eyebrow">BUSINESSMANAGER SERVICES</span>
+
+            <h1>
+                One place for the work
+                <span>behind your business.</span>
+            </h1>
+
+            <p>
+                Manage customers, sales documents, payments, stock,
+                expenses and reports through one connected system.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <section class="services-section">
+
+        <div class="service-list">
+
+
+            <article class="service-row reveal">
+
+                <div class="service-number">01</div>
+
+                <div class="service-content">
+
+                    <h2>Customer Management</h2>
+
+                    <p>
+                        Store customer contact details, notes, purchase
+                        history and follow-up information in an organized
+                        customer record.
+                    </p>
+
+                </div>
+
+                <div class="service-symbol">↗</div>
+
+            </article>
+
+
+            <article class="service-row reveal">
+
+                <div class="service-number">02</div>
+
+                <div class="service-content">
+
+                    <h2>Product & Inventory Management</h2>
+
+                    <p>
+                        Maintain product prices, SKU information,
+                        available stock and minimum stock levels.
+                    </p>
+
+                </div>
+
+                <div class="service-symbol">↗</div>
+
+            </article>
+
+
+            <article class="service-row reveal">
+
+                <div class="service-number">03</div>
+
+                <div class="service-content">
+
+                    <h2>Quotation & Invoice Management</h2>
+
+                    <p>
+                        Prepare quotations and invoices while keeping
+                        product quantities, prices and totals connected.
+                    </p>
+
+                </div>
+
+                <div class="service-symbol">↗</div>
+
+            </article>
+
+
+            <article class="service-row reveal">
+
+                <div class="service-number">04</div>
+
+                <div class="service-content">
+
+                    <h2>Payment Tracking</h2>
+
+                    <p>
+                        Record payments, partial payments and pending
+                        amounts against invoices.
+                    </p>
+
+                </div>
+
+                <div class="service-symbol">↗</div>
+
+            </article>
+
+
+            <article class="service-row reveal">
+
+                <div class="service-number">05</div>
+
+                <div class="service-content">
+
+                    <h2>Expense Management</h2>
+
+                    <p>
+                        Record business expenses and keep track of
+                        where money is being spent.
+                    </p>
+
+                </div>
+
+                <div class="service-symbol">↗</div>
+
+            </article>
+
+
+            <article class="service-row reveal">
+
+                <div class="service-number">06</div>
+
+                <div class="service-content">
+
+                    <h2>Reports & Business Overview</h2>
+
+                    <p>
+                        Review sales, expenses, payments, pending amounts
+                        and other useful business information.
+                    </p>
+
+                </div>
+
+                <div class="service-symbol">↗</div>
+
+            </article>
+
+        </div>
+
+    </section>
+
+
+    <section class="workflow-section reveal">
+
+        <span class="eyebrow">HOW IT FITS TOGETHER</span>
+
+        <h2>
+            From customer to payment,
+            keep the complete flow connected.
+        </h2>
+
+        <div class="workflow">
+
+            <div>
+                <span>01</span>
+                Customer
+            </div>
+
+            <i>→</i>
+
+            <div>
+                <span>02</span>
+                Product
+            </div>
+
+            <i>→</i>
+
+            <div>
+                <span>03</span>
+                Invoice
+            </div>
+
+            <i>→</i>
+
+            <div>
+                <span>04</span>
+                Payment
+            </div>
+
+            <i>→</i>
+
+            <div>
+                <span>05</span>
+                Reports
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer class="site-footer">
+
+    <div class="footer-wrap">
+
+        <div>
+            <strong>BusinessManager</strong>
+            <p>Practical tools for everyday business management.</p>
+        </div>
+
+        <div class="footer-links">
+
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'about' %}">About</a>
+            <a href="{% url 'products' %}">Products</a>
+            <a href="{% url 'services' %}">Services</a>
+            <a href="{% url 'contact' %}">Contact</a>
+
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        © <span id="currentYear"></span> BusinessManager. All rights reserved.
+    </div>
+
+</footer>
+
+
+<script src="{% static 'js/main.js' %}"></script>
+
+</body>
+</html>

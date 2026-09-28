@@ -1,0 +1,266 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Customers | Business Manager</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        background: #f5f7fb;
+        color: #1e293b;
+      }
+
+      .page {
+        max-width: 1200px;
+        margin: auto;
+        padding: 30px;
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+      }
+
+      .header h1 {
+        font-size: 26px;
+        margin-bottom: 6px;
+      }
+
+      .header p {
+        color: #64748b;
+        font-size: 14px;
+      }
+
+      .add-btn {
+        background: #2563eb;
+        color: white;
+        text-decoration: none;
+        padding: 11px 18px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      .add-btn:hover {
+        background: #1d4ed8;
+      }
+
+      .search-box {
+        background: white;
+        padding: 18px;
+        border-radius: 12px;
+        border: 1px solid #e2e8f0;
+        margin-bottom: 20px;
+      }
+
+      .search-box form {
+        display: flex;
+        gap: 10px;
+      }
+
+      .search-box input {
+        flex: 1;
+        padding: 12px;
+        border: 1px solid #cbd5e1;
+        border-radius: 7px;
+        outline: none;
+      }
+
+      .search-box button {
+        padding: 12px 20px;
+        border: none;
+        border-radius: 7px;
+        background: #0f172a;
+        color: white;
+        cursor: pointer;
+      }
+
+      .customer-card {
+        background: white;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        overflow-x: auto;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      th {
+        background: #f8fafc;
+        color: #64748b;
+        font-size: 12px;
+        text-align: left;
+        padding: 15px;
+      }
+
+      td {
+        padding: 15px;
+        border-top: 1px solid #f1f5f9;
+        font-size: 13px;
+      }
+
+      .customer-name {
+        font-weight: 600;
+      }
+
+      .action {
+        text-decoration: none;
+        font-size: 12px;
+        margin-right: 8px;
+      }
+
+      .edit {
+        color: #2563eb;
+      }
+
+      .delete {
+        color: #dc2626;
+      }
+
+      .empty {
+        text-align: center;
+        padding: 50px;
+        color: #64748b;
+      }
+
+      .back {
+        display: inline-block;
+        margin-bottom: 20px;
+        color: #2563eb;
+        text-decoration: none;
+        font-size: 14px;
+      }
+
+      @media (max-width: 650px) {
+        .page {
+          padding: 15px;
+        }
+
+        .header {
+          align-items: flex-start;
+          gap: 15px;
+          flex-direction: column;
+        }
+
+        .add-btn {
+          width: 100%;
+          text-align: center;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="page">
+      <a href="{% url 'dashboard' %}" class="back"> ← Back to Dashboard </a>
+
+      <div class="header">
+        <div>
+          <h1>Customers</h1>
+
+          <p>Manage your business customers</p>
+        </div>
+
+        <a href="{% url 'add_customer' %}" class="add-btn"> + Add Customer </a>
+        <a href="{% url 'follow_up_list' %}" class="btn"> 📅 Follow-ups </a>
+      </div>
+
+      <div class="search-box">
+        <form method="GET">
+          <input
+            type="text"
+            name="search"
+            value="{{ search }}"
+            placeholder="Search by name, phone or email..."
+          />
+
+          <button type="submit">Search</button>
+        </form>
+      </div>
+
+      <div class="customer-card">
+        {% if customers %}
+
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+
+              <th>Phone</th>
+
+              <th>Email</th>
+
+              <th>Follow-up</th>
+
+              <th>Created</th>
+
+              <th>Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {% for customer in customers %}
+
+            <tr>
+              <td class="customer-name">{{ customer.name }}</td>
+
+              <td>{{ customer.phone }}</td>
+
+              <td>{{ customer.email|default:"-" }}</td>
+
+              <td>{{ customer.follow_up_date|default:"-" }}</td>
+
+              <td>{{ customer.created_at|date:"d M Y" }}</td>
+
+              <td>
+                <a href="{% url 'customer_detail' customer.id %}"> View </a>
+
+                <a
+                  href="{% url 'edit_customer' customer.id %}"
+                  class="action edit"
+                >
+                  Edit
+                </a>
+
+                <a
+                  href="{% url 'delete_customer' customer.id %}"
+                  class="action delete"
+                >
+                  Delete
+                </a>
+              </td>
+            </tr>
+
+            {% endfor %}
+          </tbody>
+        </table>
+
+        {% else %}
+
+        <div class="empty">
+          <h3>No customers found</h3>
+
+          <p>Add your first customer to get started.</p>
+        </div>
+
+        {% endif %}
+      </div>
+    </div>
+  </body>
+</html>

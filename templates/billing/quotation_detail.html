@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>
+        {{ quotation.quotation_number }}
+    </title>
+
+    <style>
+
+        body {
+            font-family: Arial;
+            background: #f5f7fb;
+            padding: 30px;
+        }
+
+        .invoice {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 40px;
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #f8fafc;
+        }
+
+        .total {
+            text-align: right;
+            margin-top: 25px;
+        }
+
+        .buttons {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .buttons a {
+            padding: 10px 15px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        @media print {
+
+            .buttons {
+                display: none;
+            }
+
+            body {
+                background: white;
+                padding: 0;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="buttons">
+
+    <a
+        href="javascript:window.print()"
+    >
+        🖨 Print
+    </a>
+
+</div>
+
+
+<div class="invoice">
+
+
+    <div class="top">
+
+        <div>
+
+            <h1>
+                QUOTATION
+            </h1>
+
+            <p>
+                <strong>
+                    {{ quotation.quotation_number }}
+                </strong>
+            </p>
+
+        </div>
+
+
+        <div>
+
+            <p>
+                Date:
+                {{ quotation.quotation_date }}
+            </p>
+
+            <p>
+                Valid Until:
+                {{ quotation.valid_until|default:"-" }}
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <hr>
+
+
+    <h3>
+        Customer
+    </h3>
+
+    <p>
+        {{ quotation.customer.name }}
+    </p>
+
+    <p>
+        {{ quotation.customer.phone }}
+    </p>
+
+    {% if quotation.customer.email %}
+
+        <p>
+            {{ quotation.customer.email }}
+        </p>
+
+    {% endif %}
+
+
+    <table>
+
+        <thead>
+
+            <tr>
+
+                <th>
+                    Product
+                </th>
+
+                <th>
+                    Quantity
+                </th>
+
+                <th>
+                    Price
+                </th>
+
+                <th>
+                    Total
+                </th>
+
+            </tr>
+
+        </thead>
+
+
+        <tbody>
+
+        {% for item in items %}
+
+            <tr>
+
+                <td>
+                    {{ item.product.name }}
+                </td>
+
+                <td>
+                    {{ item.quantity }}
+                </td>
+
+                <td>
+                    ₹{{ item.price }}
+                </td>
+
+                <td>
+                    ₹{{ item.total }}
+                </td>
+
+            </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+
+    <div class="total">
+
+        <p>
+            Subtotal:
+            ₹{{ quotation.subtotal }}
+        </p>
+
+        <p>
+            Discount:
+            ₹{{ quotation.discount }}
+        </p>
+
+        <h2>
+            Grand Total:
+            ₹{{ quotation.grand_total }}
+        </h2>
+
+    </div>
+
+
+    {% if quotation.notes %}
+
+        <hr>
+
+        <h3>
+            Notes
+        </h3>
+
+        <p>
+            {{ quotation.notes }}
+        </p>
+
+    {% endif %}
+
+
+</div>
+
+</body>
+
+</html>
